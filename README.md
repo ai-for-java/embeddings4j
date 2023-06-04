@@ -6,9 +6,6 @@ Embeddings4j is an in-memory vector database optimized for storage and efficient
 - You want to store your data in separate persistent storage and use an in-memory DB as an index for fast lookup.
 - You want to use it for integration testing.
 
-## Requirements
-- Java 8 or later.
-
 ## Current State:
 - Implemented using HNSW.
 - Uses cosine distance for similarity search.
@@ -27,6 +24,9 @@ Embeddings4j is an in-memory vector database optimized for storage and efficient
 - Consider using quantization (to save memory and speed up storage/search).
 - Consider reducing dimensionality of vectors (to save memory and speed up storage/search).
 - Please let us know what you need.
+
+## Requirements
+- Java 8 or later.
 
 ## Start Using
 Maven:
