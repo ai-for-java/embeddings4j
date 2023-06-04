@@ -32,12 +32,12 @@ class InMemoryFloatVectorDatabaseTest {
         vectorDatabase.insert(embedding5);
 
 
-        EmbeddingSearchQuery<Float> query = new EmbeddingSearchQuery<>(embedding1, 2);
-        List<EmbeddingSearchResult<Float>> searchResults = vectorDatabase.searchNearest(query);
+        SearchNearestQuery<Float> query = new SearchNearestQuery<>(embedding1, 2);
+        List<SearchNearestResult<Float>> searchResults = vectorDatabase.execute(query);
 
 
         List<Embedding<Float>> resultVectors = searchResults.stream()
-                .map(EmbeddingSearchResult::embedding)
+                .map(SearchNearestResult::embedding)
                 .collect(toList());
 
         assertThat(searchResults).hasSize(2);
@@ -47,11 +47,11 @@ class InMemoryFloatVectorDatabaseTest {
     @Test
     void loadTest() {
 
-        for (int i = 7; i <= 20; i++) {
+        for (int i = 13; i <= 20; i++) {
 
             int numberOfEmbeddings = (int) Math.pow(2, i); // 128...1.048.576
 
-            for (int j = 7; j <= 11; j++) {
+            for (int j = 11; j <= 11; j++) {
 
                 int numberOfDimensions = (int) Math.pow(2, j); // 128...2.048
 

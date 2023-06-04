@@ -1,12 +1,12 @@
 package dev.embeddings4j;
 
-public class EmbeddingSearchResult<VectorType> {
+public class SearchNearestResult<VectorType> {
 
     private final Embedding<VectorType> embedding;
     private final VectorType distance;
 
-    public EmbeddingSearchResult(Embedding<VectorType> embedding,
-                                 VectorType distance) {
+    public SearchNearestResult(Embedding<VectorType> embedding,
+                               VectorType distance) {
         this.embedding = embedding;
         this.distance = distance;
     }

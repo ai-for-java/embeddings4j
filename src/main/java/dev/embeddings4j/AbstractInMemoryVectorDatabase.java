@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 
+import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
 
 public abstract class AbstractInMemoryVectorDatabase<VectorType extends Comparable<VectorType>> {
@@ -22,13 +23,18 @@ public abstract class AbstractInMemoryVectorDatabase<VectorType extends Comparab
 
     public void insert(Embedding<VectorType> embedding) {
         validate(embedding);
-
         index.add(embedding);
+    }
+
+    @SafeVarargs
+    public final void insert(Embedding<VectorType>... embeddings) {
+        List<Embedding<VectorType>> embeddingList = asList(embeddings);
+        embeddingList.forEach(this::validate);
+        embeddingList.forEach(index::add);
     }
 
     public void insertAll(Collection<Embedding<VectorType>> embeddings) throws InterruptedException {
         embeddings.forEach(this::validate);
-
         index.addAll(embeddings);
     }
 
@@ -42,13 +48,13 @@ public abstract class AbstractInMemoryVectorDatabase<VectorType extends Comparab
         }
     }
 
-    public List<EmbeddingSearchResult<VectorType>> searchNearest(EmbeddingSearchQuery<VectorType> query) {
+    public List<SearchNearestResult<VectorType>> execute(SearchNearestQuery<VectorType> query) {
         List<SearchResult<Embedding<VectorType>, VectorType>> searchResults
                 = index.findNearest(query.reference().vector(), query.maxResults());
 
         return searchResults.stream()
                 .sorted(Comparator.comparing(SearchResult::distance))
-                .map(result -> new EmbeddingSearchResult<>(result.item(), result.distance()))
+                .map(result -> new SearchNearestResult<>(result.item(), result.distance()))
                 .collect(toList());
     }
 

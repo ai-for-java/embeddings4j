@@ -1,11 +1,11 @@
 package dev.embeddings4j;
 
-public class EmbeddingSearchQuery<VectorType> {
+public class SearchNearestQuery<VectorType> {
 
-    private final Embedding<VectorType> reference; // rename
+    private final Embedding<VectorType> reference;
     private final Integer maxResults;
 
-    public EmbeddingSearchQuery(Embedding<VectorType> reference, Integer maxResults) {
+    public SearchNearestQuery(Embedding<VectorType> reference, Integer maxResults) {
         this.reference = reference;
         this.maxResults = maxResults;
     }
