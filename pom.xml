@@ -6,7 +6,7 @@
 
     <groupId>dev.ai4j</groupId>
     <artifactId>embeddings4j</artifactId>
-    <version>0.2.0</version>
+    <version>0.3.0</version>
     <packaging>jar</packaging>
 
     <name>embeddings4j</name>

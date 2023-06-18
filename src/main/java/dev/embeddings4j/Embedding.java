@@ -4,24 +4,28 @@ import com.github.jelmerk.knn.Item;
 
 import java.util.List;
 
-public class Embedding<VectorType> implements Item<Long, List<VectorType>> {
+public class Embedding<IdType, ContentType, VectorType> implements Item<IdType, List<VectorType>> {
 
-    private final long id;
-    private final String contents;
+    private final IdType id;
+    private final ContentType contents;
     private final List<VectorType> vector;
 
-    public Embedding(long id, String contents, List<VectorType> vector) {
+    public Embedding(IdType id, ContentType contents, List<VectorType> vector) {
         this.id = id;
         this.contents = contents;
         this.vector = vector;
     }
 
+    public Embedding(IdType id, List<VectorType> vector) {
+        this(id, null, vector);
+    }
+
     @Override
-    public Long id() {
+    public IdType id() {
         return id;
     }
 
-    public String contents() {
+    public ContentType contents() {
         return contents;
     }
 
@@ -33,17 +37,5 @@ public class Embedding<VectorType> implements Item<Long, List<VectorType>> {
     @Override
     public int dimensions() {
         return vector.size();
-    }
-
-    public static <VectorType> Embedding<VectorType> of(long id, List<VectorType> vector) {
-        return new Embedding<>(id, null, vector);
-    }
-
-    public static <VectorType> Embedding<VectorType> of(String contents, List<VectorType> vector) {
-        return new Embedding<>(contents.hashCode(), contents, vector);
-    }
-
-    public static <VectorType> Embedding<VectorType> of(long id, String contents, List<VectorType> vector) {
-        return new Embedding<>(id, contents, vector);
     }
 }
